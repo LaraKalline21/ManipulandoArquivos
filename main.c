@@ -15,7 +15,7 @@ int main(int argc, char* argv[]){
     //argv - value, valor que é passado
 
     //Abrir o arquivo
-    FILE *stream_de = fopen(argv[1], "r"); 
+    FILE *stream_de = fopen(argv[1], "r");  
 
     if(stream_de == NULL){
         perror("Arquivo não encontrado");
@@ -28,7 +28,6 @@ int main(int argc, char* argv[]){
     //Pegar os dados
     while(fgets(linhas, 101, stream_de)){
         char* linha = strdup(linhas); 
-        alunos[j].Nome = malloc(sizeof(char) * 101);
 
         char* token_nome = strtok(linha, ","); //primeiro valor antes da ,
         //printf("%s\n", token_nome);
@@ -48,8 +47,8 @@ int main(int argc, char* argv[]){
         char *split4 = strtok(NULL, "");
         char *nota2 = strtok(split4, ",");
        //printf("%s\n", nota2);
-        
-        strcpy(alunos[j].Nome, token_nome);
+
+       alunos[j].Nome = strdup(token_nome);
         alunos[j].nota1 = atof(nota1);
         alunos[j].nota2 = atof(nota2);
 
@@ -72,8 +71,14 @@ int main(int argc, char* argv[]){
     FILE* stream_sf = fopen("SituacaoFinal.csv", "w"); //criar um arquivo e escrever
     //Nome,Media,Situacao
      for(int i = 0; i < j; i++){
-        fprintf(stream_sf, "%s, %.2f, %s\n", alunos[i].Nome, alunos[i].media, alunos[i].Situacao);
-        //printf("%s - %.2f e %.2f - %s - %.2f\n", alunos[i].Nome, alunos[i].nota1, alunos[i].nota2, alunos[i].situacao, alunos[i].media);
+        if(i == 0)
+        {
+            fprintf(stream_sf, "Nome, Media, Situação\n");
+        }
+        else
+        {
+            fprintf(stream_sf, "%s, %.2f, %s\n", alunos[i].Nome, alunos[i].media, alunos[i].Situacao);
+        }
     }
     
     return 0;
