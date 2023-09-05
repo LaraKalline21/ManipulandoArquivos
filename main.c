@@ -10,7 +10,7 @@ typedef struct Aluno{
     char* Situacao;
 }Aluno;
 
-int main(char argc, char* argv[]){
+int main(int argc, char* argv[]){
     //argc - count, quantidade de argumentos
     //argv - value, valor que é passado
 
@@ -27,7 +27,7 @@ int main(char argc, char* argv[]){
     char linhas[101];
     //Pegar os dados
     while(fgets(linhas, 101, stream_de)){
-        char* linha = _strdup(linhas); 
+        char* linha = strdup(linhas); 
         alunos[j].Nome = malloc(sizeof(char) * 101);
 
         char* token_nome = strtok(linha, ","); //primeiro valor antes da ,
